@@ -19,20 +19,76 @@ import com.badlogic.gdx.math.Rectangle;
 public class FinalGame extends ApplicationAdapter {
 	SpriteBatch batch;
 	Texture img;
+	String minigame;
+	Player[]players;
+	InTheDark minigame1;
 	
 	@Override
 	public void create () {
 		batch = new SpriteBatch();
-		img = new Texture("badlogic.jpg");
+		//img = new Texture("badlogic.jpg");
+		players = new Player[4];
+		players[0] = new Player(1, new Texture("player.png"));
+		minigame1 = new InTheDark(players[0]);
+		minigame = "inthedark";
+		minigame1.setStartTime(System.currentTimeMillis());
+	}
+	public void update() {
+		if(minigame == "inthedark"){
+			minigame1.update();
+		}
 	}
 
 	@Override
 	public void render () {
-		Gdx.gl.glClearColor(1, 0, 0, 1);
+		update();
+		Gdx.gl.glClearColor(0, 0, 0, 1);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+		if(minigame == "inthedark"){
+			minigame1.render();
+		}
 		batch.begin();
-		batch.draw(img, 0, 0);
+		//batch.draw(img, 0, 0);
 		batch.end();
+	}
+	public boolean keyDown(int keycode) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	public boolean keyUp(int keycode) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	public boolean keyTyped(char character) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	public boolean touchDown(int screenX, int screenY, int pointer, int button) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	public boolean touchUp(int screenX, int screenY, int pointer, int button) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	public boolean touchDragged(int screenX, int screenY, int pointer) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	public boolean mouseMoved(int screenX, int screenY) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	public boolean scrolled(int amount) {
+		// TODO Auto-generated method stub
+		return false;
 	}
 	
 }

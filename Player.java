@@ -34,6 +34,7 @@ public class Player{
 		starStash = 0;
 		atSpot = 0;
 		player = new Sprite(img);
+		player.setPosition(700, 30);
 	}
 	public int getNum(){ //returns player number
 		return num;
@@ -41,13 +42,13 @@ public class Player{
 	public int getSpot(){ //returns spot on board player is at
 		return atSpot;
 	}
-	public Sprite getSprite(){ //returns texture of player
+	public Sprite getSprite(){ //returns sprite of player
 		return player;
 	}
 	public void changeStash(int val){ //adds to or decreases number of items
 		starStash += val; 
 	}
-	public void setPosition(int x, int y){ //sets position of sprite within class
+	public void setPosition(float x, float y){ //sets position of sprite within class
 		player.setPosition(x,y);
 	}
 	
