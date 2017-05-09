@@ -16,7 +16,7 @@ import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer.ShapeType;
 import com.badlogic.gdx.math.Rectangle;
 
-public class FinalGame extends ApplicationAdapter {
+public class FinalGame extends ApplicationAdapter implements InputProcessor{
 	SpriteBatch batch;
 	Texture img;
 	String minigame;
@@ -35,7 +35,9 @@ public class FinalGame extends ApplicationAdapter {
 	}
 	public void update() {
 		if(minigame == "inthedark"){
-			minigame1.update();
+			if(minigame1.running() == true){
+				minigame1.update();				
+			}
 		}
 	}
 
@@ -45,7 +47,9 @@ public class FinalGame extends ApplicationAdapter {
 		Gdx.gl.glClearColor(0, 0, 0, 1);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 		if(minigame == "inthedark"){
-			minigame1.render();
+			if(minigame1.running() == true){
+				minigame1.render();				
+			}
 		}
 		batch.begin();
 		//batch.draw(img, 0, 0);

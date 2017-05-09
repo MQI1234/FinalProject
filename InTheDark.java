@@ -41,10 +41,12 @@ public class InTheDark{
 	private Texture item = new Texture("item.png");
 	
 	//holds information
-	private Rectangle[] itemList = new Rectangle[15];
+	private ArrayList<Rectangle> itemList = new ArrayList<Rectangle>();
+	int itemsCollected = 0;
+	private long startTime; //time when class is first created
 	
-	private long startTime;
-
+	//counter
+	private int seconds;
 	
 	public InTheDark(Player p1){
 		batch = new SpriteBatch();
@@ -54,8 +56,16 @@ public class InTheDark{
 		for(int i = 0; i<15; i++){ //loops to create item locations on map
 			int x = rand.nextInt(1200);
 			int y = rand.nextInt(600);
-			itemList[i] = new Rectangle(x, y, item.getWidth(), item.getHeight());
+			itemList.add(new Rectangle(x, y, item.getWidth(), item.getHeight()));
 		}
+		seconds = 0;
+	}
+	
+	public boolean running(){ //if player still has time
+		if(seconds > 10){
+			return false;
+		}
+		return true;
 	}
 	public void movePlayer(){ //needs keyboard input 
 		//player will not be able to move off screen
@@ -72,11 +82,16 @@ public class InTheDark{
 			user.setPosition(userSprite.getX(), userSprite.getY() + 4);
 		}
 	}
+	
 	public void update(){
+		timer();
 		movePlayer();
+		collect();
+		newItems();
 		moveEnemy();
 		userSprite = user.getSprite();
 	}
+	
 	public void render(){
 		showTime();
 		batch.begin();
@@ -86,16 +101,37 @@ public class InTheDark{
 		}
 		userSprite.draw(batch);
 		enemy.draw(batch);
-		batch.draw(shadow, userSprite.getX() + userSprite.getWidth()/2 - 1650, userSprite.getY() + userSprite.getHeight()/2 - 1000);
+		//batch.draw(shadow, userSprite.getX() + userSprite.getWidth()/2 - 1650, userSprite.getY() + userSprite.getHeight()/2 - 1000);
 		//positions picture so that player texture drawn to center of transparent circle
 		batch.end();
 	}
+	
 	public void moveEnemy(){ //moves according to location of player
 		enemy.setPosition((float)(enemy.getX() + (userSprite.getX() - enemy.getX())*0.005), (float)(enemy.getY() + (userSprite.getY() - enemy.getY())*0.005));
+	}
+	
+	public void collect(){ //checks if player is touching items
+		for(int i = 0; i<itemList.size(); i++){
+			if(userSprite.getBoundingRectangle().overlaps(itemList.get(i))){ //player sprite collides with item
+				itemsCollected += 1;
+				itemList.remove(i); //removes item from list, will not check or render it anymore 
+			}
+		}
+	}
+	public void timer(){ //times game
+		if((int)((System.currentTimeMillis() - startTime)/1000) > seconds){
+			seconds += 1;
+		}
+	}
+	public void newItems(){ //generates new item every 5 seconds
+		if((int)((System.currentTimeMillis() - startTime)/5000) > (int)(seconds/5)){
+			itemList.add(new Rectangle(rand.nextInt(1200), rand.nextInt(600),item.getWidth(),item.getHeight())); //generates new item
+		}
 	}
 	public void setStartTime(long time){
 		startTime = time;
 	}
+	
 	public void showTime(){
 		//System.out.println((int)((System.currentTimeMillis() - startTime)/1000));
 	}
