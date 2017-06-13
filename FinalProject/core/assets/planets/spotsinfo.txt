@@ -1,0 +1,7 @@
+200 100 eye.png
+300 200 eye.png
+400 300 eye.png
+500 400 eye.png
+600 700 eye.png
+800 900 eye.png
+100 900 eye.png

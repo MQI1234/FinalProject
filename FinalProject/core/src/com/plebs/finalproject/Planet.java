@@ -9,6 +9,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Batch;
+import com.badlogic.gdx.math.Rectangle;
 
 public class Planet {
 	private String name;
@@ -22,11 +23,12 @@ public class Planet {
 		y = Integer.parseInt(string[1]);
 		makeName();
 		type = "get3";
-		texture = new Texture(string[2]);
+		texture = new Texture("planets/"+string[2]);
 		
 	}
+	
 	public void makeName() throws IOException{
-		FileHandle file = Gdx.files.internal("names.txt");
+		FileHandle file = Gdx.files.internal("planets/names.txt");
 		BufferedReader reader = new BufferedReader(file.reader());
 		ArrayList<String> lines = new ArrayList<String>();
 		String line = reader.readLine();
@@ -38,9 +40,19 @@ public class Planet {
 		name = lines.get(r.nextInt(lines.size()));
 		System.out.println(name);
 	}
+	
+	public Rectangle getRekt(){ //returns bounding rectangle of texture on board
+		return new Rectangle(x,y,texture.getWidth(), texture.getHeight());
+	}
+	
+	public Texture getText(){ 
+		return texture;
+	}
+	
 	public void drawPlanet(Batch batch){
 		batch.draw(texture, x, y);
 	}
+	
 	public void action(Player player){
 		//if (type.equals("type3"))
 	}

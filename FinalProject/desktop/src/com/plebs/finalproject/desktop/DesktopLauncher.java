@@ -2,13 +2,13 @@ package com.plebs.finalproject.desktop;
 
 import com.badlogic.gdx.backends.lwjgl.LwjglApplication;
 import com.badlogic.gdx.backends.lwjgl.LwjglApplicationConfiguration;
-import com.plebs.finalproject.SpaceHunt;
+import com.plebs.finalproject.FinalProject;
 
 public class DesktopLauncher {
 	public static void main (String[] arg) {
 		LwjglApplicationConfiguration config = new LwjglApplicationConfiguration();
-		config.height = 900;
+		new LwjglApplication(new FinalProject(), config);
 		config.width = 1500;
-		new LwjglApplication(new SpaceHunt(), config);
+		config.height = 900;
 	}
 }
