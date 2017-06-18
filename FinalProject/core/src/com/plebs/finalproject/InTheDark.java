@@ -90,15 +90,23 @@ public class InTheDark{
 		//player will not be able to move off screen
 		if(Gdx.input.isKeyPressed(Keys.LEFT) && userSprite.getX()>0){
 			user.setPosition(userSprite.getX() - 12, userSprite.getY());
+			user.setDirect(1);
+			user.addFrame();
 		} 
 		else if(Gdx.input.isKeyPressed(Keys.RIGHT) && userSprite.getX()<(Gdx.graphics.getWidth() - userSprite.getWidth())){
 			user.setPosition(userSprite.getX() + 12, userSprite.getY());
+			user.setDirect(2);
+			user.addFrame();
 		}
 		if(Gdx.input.isKeyPressed(Keys.DOWN) && userSprite.getY()>12){
 			user.setPosition(userSprite.getX(), userSprite.getY() - 12);
+			user.setDirect(0);
+			user.addFrame();
 		} 
 		else if(Gdx.input.isKeyPressed(Keys.UP) && userSprite.getY()<(Gdx.graphics.getHeight() - userSprite.getHeight())){
 			user.setPosition(userSprite.getX(), userSprite.getY() + 12);
+			user.setDirect(3);
+			user.addFrame();
 		}
 	}
 	
@@ -120,7 +128,7 @@ public class InTheDark{
 		for(Rectangle r : itemList){
 			batch.draw(item, r.x, r.y);
 		}
-		userSprite.draw(batch);
+		user.render(batch);
 		enemy.draw(batch);
 		batch.draw(shadow, userSprite.getX() + userSprite.getWidth()/2 - 1650, userSprite.getY() + userSprite.getHeight()/2 - 1000);
 		//positions picture so that player texture drawn to center of transparent circle
